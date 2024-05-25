@@ -271,6 +271,12 @@
             const scrollTop = window.scrollY;
             const clientHeight = window.innerHeight;
 
+			if (chatInterface.classList.contains('visible')) {
+				document.body.style.overflow = 'auto'; // Allow scrolling when chat interface is visible
+			} else {
+				document.body.style.overflow = 'hidden'; // Prevent scrolling when chat interface is not visible
+			}
+			
             if (scrollHeight - scrollTop === clientHeight) {
                 if (currentIndex === 0) {
                     setTimeout(displayNextMessage, 1200); // messages shown after delay after reaching bottom doesn't work for vertical mobile phones???
