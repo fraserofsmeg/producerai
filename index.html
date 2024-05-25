@@ -311,12 +311,12 @@
         });
 		
 		function enableScroll() {
-			scrollableElement.addEventListener('wheel', scrollHandler);
+			document.getElementById('chatInterface').addEventListener('wheel', scrollHandler);
 		}
 
 		// Function to disable scroll wheel event
 		function disableScroll() {
-			scrollableElement.removeEventListener('wheel', scrollHandler);
+			document.getElementById('chatInterface').removeEventListener('wheel', scrollHandler);
 		}
 		
 		function isElementVisible(element) {
