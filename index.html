@@ -310,9 +310,29 @@
             }
         });
 		
-        document.getElementById('chatInterface').addEventListener('wheel', function(event) {
-			if (!this.classList.contains('visible')) {
-				event.stopPropagation(); // Prevent scroll event from being intercepted by the chat interface
+		function enableScroll() {
+			scrollableElement.addEventListener('wheel', scrollHandler);
+		}
+
+		// Function to disable scroll wheel event
+		function disableScroll() {
+			scrollableElement.removeEventListener('wheel', scrollHandler);
+		}
+		
+		function isElementVisible(element) {
+			return element.offsetWidth > 0 || element.offsetHeight > 0;
+		}
+		
+		if (isElementVisible(document.getElementById('chatInterface'))) {
+			enableScroll();
+		} else {
+			disableScroll();
+		}
+        window.addEventListener('resize', function() {
+			if (isElementVisible(document.getElementById('chatInterface'))) {
+				enableScroll();
+			} else {
+				disableScroll();
 			}
 		});
     </script>
