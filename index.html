@@ -3,338 +3,566 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ProdUser.AI</title>
+    <title>produser:ai</title>
     <link rel="icon" type="image/jpeg" href="./favicon.jpg">
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-G62PKT9YT9"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'G-G62PKT9YT9');
-	</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            min-height: 100%;
-            width: 100%;
-            background: black;
-            font-family: Arial, sans-serif;
-            color: black;
-            display: flex;
-            flex-direction: column;
-            overflow: auto;
-        }
-        .content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            width: 100%;
-            height: 200vh;
-        }
-        img {
-            position: fixed;
-            top: 0;
-            left: 0;
-            transition: all 0.5s ease;
-            width: 100vw;
-            height: 100vh;
-            opacity: 1;
-        }
-        .chat-container {
-            position: fixed;  
-            top: 50%;  
-            left: 50%;  
-            transform: translate(-50%, -50%);  
-            width: 80%;
-            max-width: 800px;
-            height: 50%;
-            max-height: 600px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .chat-interface {
-            width: 100%;
-            height: 100%;
-            background: url('./background.jpg') no-repeat center center;
-            background-size: cover;
-            border-radius: 15px;
-            padding: 20px;
-            padding-left: 30px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            opacity: 0;
-            transition: opacity 3s ease, width 0.5s ease, height 0.5s ease;
-        }
-        .chat-interface.visible {
-            opacity: 1;
-        }
-        .chat-interface::-webkit-scrollbar {
-            display: none;
-        }
-        .title {
-            position: absolute;
-            top: 120vh;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            color: white;
-            width: 100%;
-        }
-        .bottom-text {
-            color: white;
-            position: absolute;
-            top: 200%;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            width: 100% !important;
-            padding-bottom: 5%;
-        }
-        .message, .response, .text-response {
-            align-self: flex-end;
-            padding: 10px;
-            background: rgb(151, 212, 81);
-            border-radius: 10px;
-            max-width: 70%;
-        }
-        .response, .text-response {
-            align-self: flex-start;
-            background: rgb(255, 199, 243);
-        }
-        button {
-            display: none !important;
-            position: fixed;  
-            bottom: 0;        
-            left: 50%;        
-            transform: translateX(-50%); 
-            z-index: 1000;   
-            display: block 
-        }
-        @media (max-width: 600px) {
-            button {
-                display: inline-block !important;
-            }
+
+        :root {
+            --secondary-color: #FFC107;  
+            --accent-color: #7DF9FF; 
+            --text-color: #333333;  
+            --text-color-selected: #000000; 
+            --background-color: #FFFFFF;  
+            --background-color-off: #F4F4F4; 
+            --background-color-off2: #dfdbdb; 
+            --background-color-off3: #bdbaba;  
+            --boarder-color: #000000;  
         }
 
-        @media (max-width: 600px) {
-            .chat-container {
-                width: 95%;
-                max-width: 95%;
-                height: 60%;
-                max-height: 60%;
-            }
-            .chat-interface {
-                padding: 10px;
-                padding-left: 15px;
-            }
-            .title {
-                font-size: 1.5em;
-            }
-            .bottom-text {
-                font-size: 1em;
-                padding-bottom: 10%;
-            }
-            .message, .response, .text-response {
-                padding: 5px;
-                font-size: 0.8em;
-                max-width: 90%;
-            }
+        body {
+            margin: 0;
+            font-family: 'Trebuchet MS', sans-serif;
+            background-color: var(--background-color);
+        }
+        
+        #content {
+            padding: 0px;
+            text-align: center;
+            /* height: 100vh; */
+        }
+
+        .background {
+            background-size: cover;
+            background-position: center;
+            height:65vh;
+            cursor: pointer; 
+            position: relative;
+        }
+
+        .home-background {
+            background-image: url('./landscape-produserai.jpg');
+        }
+
+        .portrait-background {
+            background-image: url('./portrait-produserai.jpg');
+        }
+
+        #contactDetails {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-color);
+        }
+
+        #demo-header {
+            color: var(--text-color);
+            padding: 20px;
         }
 
         @media (orientation: portrait) {
-            img {
-                content: url('./portrait-amp-lm.jpg');
+            .background {
+                background-image: url('./portrait-produserai.jpg');
             }
         }
 
         @media (orientation: landscape) {
-            img {
-                content: url('./landscape-amp-lm.jpg');
+            .background {
+                background-image: url('./landscape-produserai.jpg');
             }
         }
-        @media (orientation: portrait) {
-    .title {
-        font-size: 5vw !important; 
-    }
-    .bottom-text {
-        font-size: 5vw !important; 
-    }
-}
+
+        .background.fade-out {
+            animation: fadeBackground 0.9s ease;
+        }
+
+        @keyframes fadeBackground {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        /* #chatInterface {
+            border: 1px solid #ccc;
+            padding: 0px;
+            height: 400px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        .message, .text-response, .response {
+            margin: 10px 0;
+        }
+        .message {
+            color: blue;
+        }
+        .text-response {
+            color: green;
+        } */
+
+        .bg-black { background-color: var(--background-color); }
+        .p-10 { padding: 10px; }
+        .rounded-lg { border-radius: 8px; }
+        .w-full { width: 100%; }
+        .mb-10 { margin-bottom: 10px; }
+        .text-3xl { font-size: 1.5em; }
+        .font-bold { font-weight: bold; }
+        .text-center { text-align: center; }
+        .text-white { color: var(--text-color); }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .overflow-y-auto { overflow-y: auto; }
+        .relative { position: relative; }
+
+        .message, .response {
+            padding: 12px;
+            border-radius: 12px;
+            margin-top: 4px;
+            max-width: 70%;
+            color: black;
+            margin: 10px;
+        }
+        .message {
+            background-color: var(--secondary-color);
+            margin-left: auto;
+            /* margin-right: 0; */
+        }
+        .response {
+            background-color: var(--accent-color);
+            margin-right: auto;
+            /* margin-left: 0; */
+        }
+        .typing .dot {
+            height: 10px;
+            width: 10px;
+            background-color: var(--background-color);
+            border-radius: 50%;
+            display: inline-block;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        
+        .typing .dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        margin: 0 2px;
+        background-color: var(--background-color);
+        border-radius: 50%;
+        animation: typing 1s infinite;
+        }
+
+        .typing .dot:nth-child(2) {
+        animation-delay: 0.3s;
+        }
+
+        .typing .dot:nth-child(3) {
+        animation-delay: 0.6s;
+        }
+
+        @keyframes typing {
+        0% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+        }
+
+        .layout-container {
+            display: flex;
+            flex-direction: row;
+            padding-left: 60px;
+            padding-right: 60px;
+        }
+
+        .chat-list-container {
+            width: 25%; /* Adjust width as necessary */
+            background-color: var(--background-color-off);
+            border-style: solid;
+            border-radius: 10px;
+            border-width: 1px;
+            border-color: var(--boarder-color);
+            padding: 20px;
+            margin-right: 10px; /* Spacing between sidebar and chat interface */
+            scrollbar-color: #b6b6b6 #f1f1f1; /* thumb and track color */
+            scrollbar-width: thin; /* Can be 'auto', 'thin', or 'none' */
+        }
+
+        .chat-interface-container {
+            margin-left: 60px;
+            background-color: var(--background-color-off);
+            background-image: url('./logo-transparent-50.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 50vh;
+
+            border-style: solid;
+            border-radius: 10px;
+            border-width: 1px;
+            border-color: var(--boarder-color);
+        }
+
+        .chat-interface::-webkit-scrollbar {
+            width: 3px; /* Scrollbar width */
+        }
+
+        .chat-interface::-webkit-scrollbar-track {
+            background: var(--background-color); /* Track color */
+            border-radius: 1px; /* Rounded corners on the track */
+        }
+
+        .chat-interface::-webkit-scrollbar-thumb {
+            background-color: var(--background-color);
+            border-radius: 1px; /* Rounded corners on the thumb */
+            border: 3px solid var(--boarder-color); /* Creates a border around the thumb */
+        }
+
+        .new-chat-btn {
+
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            padding: 10px 20px;
+            text-align: center;
+            display: block;
+            border-style: solid;
+            border-radius: 10px;
+            border-width: 1px;
+            border-color: var(--boarder-color);
+            cursor: pointer;
+            margin-bottom: 30px;
+            float: right;
+        }
+
+        .chat-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .chat-item {
+            display: flex;         /* Enables flexbox layout */
+            justify-content: space-between; /* Aligns children to each edge */
+            padding-top: 8px;
+            padding-left: 8px;
+            padding-bottom: 8px;
+            /* background-color: #170c12; Light grey background */
+            /* margin-bottom: 5px; */
+            cursor: pointer; /* Pointer cursor on hover */
+            color: var(--text-color);
+        }
+
+        .chat-item.selected {
+            background-color: var(--background-color-off2); /* Green background for selected chat */
+            color: 	var(--text-color-selected);
+            border-radius: 3px;
+            font-weight: bold;
+            box-shadow: 0px 1px 1px var(--background-color-off3);
+        }
+
+        .chat-item:hover {
+            background-color:  var(--background-color-off3);
+        }
+
+        @media (max-width: 600px) {
+            chat-list-container {
+                display: inline-block !important;
+            }
+        }
 
 
+        @media all and (min-width: 480px) {
+            .chat-list-container {display:block;}
+        }
 
+        @media all and (max-width: 479px) {
+            .chat-list-container{display:none;}
+            .chat-interface-container {padding:0px;}
+            .chat-interface-container {margin:0px;}
+            .layout-container {padding:5px;}
+            .demo-header {padding:5px;}
+            
+        }
+
+        .demo-header, h1 {
+            font-size: 6vh;
+            text-align: center;
+            background-image: linear-gradient(to top, #787285, #050030);
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+
+        .chat-list-container, h2 {
+            text-align: left;
+        }
+
+        audio {
+            max-width: 100%;
+        }
+
+/* 
+        .pulsate {
+            animation: pulse 5s infinite;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: White;
+        }
+
+        @keyframes pulse {
+            0%{
+                font-size: 7vh;
+            }
+            50% {
+                font-size: 7.01vh;
+            }
+            100% {
+                font-size: 7vh;
+            }
+        } */
+
+        #colorChanger {
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            background-color: var(--background-color-off);
+        }
+        #colorChanger input[type="color"] {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
-    <img src="./landscape-amp-lm.jpg" alt="Description of image" id="image">
-    <div class="content">
-        <div class="title" id="title">
-            ProdUser.AI chat interface demonstration
-
-        </div>
-        <div class="chat-container">
-            <div class="chat-interface" id="chatInterface"></div>
-        </div>
-        <div class="bottom-text" id="bottomText">
-            simple enough to be used by anyone, powerful enough to be utilised by all 
-            <button id="showMessageButton" onclick="displayNextMessage()">Start</button>
-        </div>
-        
+    <div id ="demo-header">
+        <h1>produser|ai</h1>
     </div>
-    
-
+    <div id="content">
+        <div class="background home-background" onclick="loadPage('demo')">
+        </div>
+    </div>
+    <div id="contactDetails">
+        <h2><center>Contact Us</center></h2>
+        <p>Email: contact@produser.ai</p>
+        <!-- Add more contact details if needed -->
+    </div>
     <script>
         const messages = [
-            { type: 'user', content: 'Message', response: 'Can you make me a rock track?' },
+        { type: 'user', content: '', response: 'Can you make me a rock track?' },
             { type: 'response', content: './0001.mp3', text: 'Here is your rock track, I hope it is to your satisfaction.' },
             { type: 'response', content: '', text: "## Please click the play button to listen to it. ##" }, 
-            { type: 'user', content: 'Message', response: 'Great but could you clean up the drums?' },
+            { type: 'user', content: '', response: 'Great but could you clean up the drums?' },
             { type: 'response', content: './0002.mp3', text: "Sure, I've cleaned up the drums. What do you think?" },
-            { type: 'user', content: 'Message', response: 'Can you add some reverb to the drums?' },
+            { type: 'user', content: '', response: 'Can you add some reverb to the drums?' },
             { type: 'response', content: './0003.mp3', text: "I've added reverb to the drums. How do they sound?" },
-            { type: 'user', content: 'Message', response: 'Nice! Now can you add a baseline?' },
+            { type: 'user', content: '', response: 'Nice! Now can you add a baseline?' },
             { type: 'response', content: './0004.mp3', text: "Here is your track with a baseline added." },
-            { type: 'user', content: 'Message', response: 'How about if we pan that baseline all the way to the left?' },
+            { type: 'user', content: '', response: 'How about if we pan that baseline all the way to the left?' },
             { type: 'response', content: './0005.mp3', text: "Sure, I've completed your request. What do you think?" },
-            { type: 'user', content: 'Message', response: 'Great, can you decrease the volume by 5db?' },
+            { type: 'user', content: '', response: 'Great, can you decrease the volume by 5db?' },
             { type: 'response', content: '', text: "Do you mean total track volume or just the bassline as previously discussed?" },  
-            { type: 'user', content: 'Message', response: 'Sorry, can you decrease the bass volume by 5db?' },
+            { type: 'user', content: '', response: 'Sorry, can you decrease the bass volume by 5db?' },
             { type: 'response', content: './0006.mp3', text: 'The baseline volume has been decreased, have a listen' },
-            { type: 'user', content: 'Message', response: 'The level is great but can you bring the bass back to centre?' },
+            { type: 'user', content: '', response: 'The level is great but can you bring the bass back to centre?' },
             { type: 'response', content: './0007.mp3', text: "Sure, what do you think?" },
-            { type: 'user', content: 'Message', response: 'Brilliant, can you extend the track by 30 seconds?' },
+            { type: 'user', content: '', response: 'Brilliant, can you extend the track by 30 seconds?' },
             { type: 'response', content: './0008.mp3', text: "I've extended your track by 30 seconds" },
-            { type: 'user', content: 'Message', response: 'Perfection!!' },
+            { type: 'user', content: '', response: 'Perfection!!' },
             { type: 'response', content: '', text: "Thank you! I'm glad you liked it. Is there anything else I can assist you with today?" }  
-        ];
+    ];
         let currentIndex = 0;
+        let intervalId = null;
 
-        function displayNextMessage() {
-            const chatInterface = document.getElementById('chatInterface');
-            if (currentIndex < messages.length) {
-                const message = messages[currentIndex++];
-
-                if (message.type === 'response') {
-                    const textDiv = document.createElement('div');
-                    textDiv.classList.add('text-response');
-                    textDiv.textContent = message.text;
-                    chatInterface.appendChild(textDiv);
-
-                    if (message.content) {
-                        const messageDiv = document.createElement('div');
-                        messageDiv.classList.add('response');
-                        messageDiv.innerHTML = `<audio controls>
-                            <source src="${message.content}" type="audio/wav">
-                            Your browser does not support the audio element.
-                        </audio>`;
-                        chatInterface.appendChild(messageDiv);
-                    }
-                } else {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.classList.add('message');
-                    messageDiv.textContent = message.response;
-                    chatInterface.appendChild(messageDiv);
-                }
-
-                chatInterface.scrollTop = chatInterface.scrollHeight; 
-
-                setTimeout(displayNextMessage, 4000); 
-            }
+        function scrollToBottom() {
+            const chatInterface = document.querySelector('.chat-interface');
+            chatInterface.scrollTop = chatInterface.scrollHeight;
         }
 
-        function checkScrollAndSetVisibility() {
-            const image = document.getElementById('image');
-            const chatInterface = document.getElementById('chatInterface');
-            const showMessageButton = document.getElementById('showMessageButton');
-            const scrolled = window.scrollY || window.pageYOffset;
-
-            let opacity = 1 - scrolled / 500;
-            image.style.opacity = opacity;
-
-            if (opacity <= 0.5) {
-                chatInterface.classList.add('visible');
-                showMessageButton.style.display = 'block';
-            } else {
-                chatInterface.classList.remove('visible');
-                showMessageButton.style.display = 'none';
+        function renderMessage(message) {
+            const chatInterface = document.querySelector('.chat-interface');
+            const messageDiv = document.createElement('div');
+            const messageDiv2 = document.createElement('div');
+            messageDiv.classList.add(message.type === 'user' ? 'message' : 'response');
+            messageDiv2.classList.add(message.type === 'user' ? 'message' : 'response');
+            messageDiv.textContent = message.type === 'user' ? message.response : message.text;
+            chatInterface.appendChild(messageDiv);
+            if (message.content) {
+                const audio = document.createElement('audio');
+                audio.controls = true;
+                const source = document.createElement('source');
+                source.src = message.content;
+                source.type = 'audio/wav';
+                audio.appendChild(source);
+                messageDiv2.appendChild(audio);
+                chatInterface.appendChild(messageDiv2);
             }
-
-            const scrollHeight = document.documentElement.scrollHeight;
-            const scrollTop = window.scrollY;
-            const clientHeight = window.innerHeight;
-			
-            if (scrollHeight - scrollTop === clientHeight) {
-                if (currentIndex === 0) {
-                    setTimeout(displayNextMessage, 1200); // messages shown after delay after reaching bottom doesn't work for vertical mobile phones???
-                }
-            }
+            scrollToBottom();
+            
         }
 
-        function adjustSizes() {
-            const chatInterface = document.getElementById('chatInterface');
-            const title = document.getElementById('title');
-            const bottomText = document.getElementById('bottomText');
-
-            const chatWidth = chatInterface.offsetWidth;
-            const chatHeight = chatInterface.offsetHeight;
-
-            title.style.width = chatWidth + 'px';
-            title.style.fontSize = chatHeight * 0.1 + 'px'; 
-            bottomText.style.width = chatWidth + 'px';
-            bottomText.style.fontSize = chatHeight * 0.06 + 'px'; 
-        }
-
-        window.addEventListener('scroll', checkScrollAndSetVisibility);
-        window.addEventListener('resize', adjustSizes);
-        window.addEventListener('load', adjustSizes);
         
-        document.getElementById('chatInterface').addEventListener('wheel', function(event) {
-            var deltaY = event.deltaY;
-            var contentHeight = this.scrollHeight;
-            var visibleHeight = this.clientHeight;
-            var currentScrollPosition = this.scrollTop;
+        function simulateTyping() {
+            const chatInterface = document.querySelector('.chat-interface');
+            const typingDiv = document.createElement('div');
+            typingDiv.classList.add('response', 'typing');
+            typingDiv.innerHTML = `<div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`;
+            chatInterface.appendChild(typingDiv);
+            scrollToBottom();
+            return typingDiv;
+        }
 
-            if (currentScrollPosition === 0 && deltaY < 0) {
-                event.preventDefault();
+        function simulateConversation() {
+            const chatInterface = document.querySelector('.chat-interface');
+            if (currentIndex < messages.length) {
+                const message = messages[currentIndex];
+                if (message.type === 'response') {
+                    const typingAnimation = simulateTyping();
+                    setTimeout(() => {
+                        chatInterface.removeChild(typingAnimation);
+                        renderMessage(message);
+                        currentIndex++;
+                        setTimeout(simulateConversation, 1000); // Adjust timing as needed
+                    }, 1000); // Simulate typing speed
+                } else {
+                    renderMessage(message);
+                    currentIndex++;
+                    setTimeout(simulateConversation, 1000);
+                }
             }
-            else if ((contentHeight - visibleHeight - currentScrollPosition) === 0 && deltaY > 0) {
+        }
+
+
+        function loadPage(page) {
+            const contentDiv = document.getElementById('content');
+            const backgroundDiv = document.querySelector('.background');
+
+            if (page === 'demo') {
+                
+                backgroundDiv.classList.add('fade-out');
+
+                
+                setTimeout(() => {
+                    contentDiv.innerHTML = `
+                        
+                        <div class="layout-container">
+                            
+                        <div class="chat-list-container rounded-lg">
+                            
+                            <h2>Projects</h2>
+                            <ul class="chat-list">
+                                <hr>
+                                <hr>
+                                <li class="chat-item selected">Rock track project</li>
+                                <hr>
+                                <li class="chat-item">Cinematic Soundscape for Cosmetics Ad</li>
+                                <hr>
+                                <li class="chat-item">Pop Track for Jeans Ad</li>
+                                <hr>
+                                <li class="chat-item">Drum Heavy Sea Soundscape for Irish Stout</li>
+                                <hr>
+                                <li class="chat-item">Uplifting Orchestral Piece for Horse Bank</li>
+                                <!-- Add more chats if needed -->
+                            </ul>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <button class="new-chat-btn">New Project</button>
+                        </div>
+
+                        <!-- Main chat interface container -->
+                        <div class="chat-interface-container bg-black p-10 rounded-lg w-full">
+                            <h2 class="text-3xl font-bold mb-4 text-center text-white">Rock track project</h2>
+                            <hr>
+                            <div class="chat-interface flex flex-col overflow-y-auto relative" style="height: 500px;"></div>
+                        </div>
+                        </div>
+                        
+                        <div id="colorChanger" style="display: none; padding: 20px; border: 1px solid #ccc; background-color: var(--background-color-off); margin: 20px;">
+                            <h2>Change Theme Colors</h2>
+                            
+                            <label for="secondary-color">Secondary Color:</label>
+                            <input type="color" id="secondary-color" value="#FFC107">
+                            <button onclick="updateCSSVariable('--secondary-color', document.getElementById('secondary-color').value)">Apply</button>
+                            <br><br>
+
+                            <label for="accent-color">Accent Color:</label>
+                            <input type="color" id="accent-color" value="#7DF9FF">
+                            <button onclick="updateCSSVariable('--accent-color', document.getElementById('accent-color').value)">Apply</button>
+                            <br><br>
+
+                            <label for="text-color">Text Color:</label>
+                            <input type="color" id="text-color" value="#333333">
+                            <button onclick="updateCSSVariable('--text-color', document.getElementById('text-color').value)">Apply</button>
+                            <br><br>
+
+                            <label for="text-color-selected">Text Color Selected:</label>
+                            <input type="color" id="text-color-selected" value="#000000">
+                            <button onclick="updateCSSVariable('--text-color-selected', document.getElementById('text-color-selected').value)">Apply</button>
+                            <br><br>
+
+                            <label for="background-color">Background Color:</label>
+                            <input type="color" id="background-color" value="#FFFFFF">
+                            <button onclick="updateCSSVariable('--background-color', document.getElementById('background-color').value)">Apply</button>
+                            <br><br>
+
+                            <label for="background-color-off">Background Color Off:</label>
+                            <input type="color" id="background-color-off" value="#F4F4F4">
+                            <button onclick="updateCSSVariable('--background-color-off', document.getElementById('background-color-off').value)">Apply</button>
+                            <br><br>
+
+                            <label for="background-color-off2">Background Color Off 2:</label>
+                            <input type="color" id="background-color-off2" value="#dfdbdb">
+                            <button onclick="updateCSSVariable('--background-color-off2', document.getElementById('background-color-off2').value)">Apply</button>
+                            <br><br>
+
+                            <label for="background-color-off3">Background Color Off 3:</label>
+                            <input type="color" id="background-color-off3" value="#bdbaba">
+                            <button onclick="updateCSSVariable('--background-color-off3', document.getElementById('background-color-off3').value)">Apply</button>
+                            <br><br>
+
+                            <label for="border-color">Border Color:</label>
+                            <input type="color" id="border-color" value="#000000">
+                            <button onclick="updateCSSVariable('--boarder-color', document.getElementById('border-color').value)">Apply</button>
+                            <br><br>
+                        </div>
+
+                    `;
+                    simulateConversation();
+                }, 900); // Animation duration
+            }
+        }
+
+
+        function updateCSSVariable(varName, newValue) {
+            document.documentElement.style.setProperty(varName, newValue);
+        }
+
+        document.addEventListener('keydown', function(event) {
+            // Check if Ctrl or Command (for macOS) and the 'I' key are pressed
+            if ((event.ctrlKey || event.metaKey) && event.key === 'i') {
+                // Prevent default browser behavior for Ctrl+I
                 event.preventDefault();
+                
+                // Toggle visibility of the color changer
+                var colorChanger = document.getElementById('colorChanger');
+                if (colorChanger.style.display === 'none') {
+                    colorChanger.style.display = 'block';
+                } else {
+                    colorChanger.style.display = 'none';
+                }
             }
         });
-		
-		function enableScroll() {
-			document.getElementById('chatInterface').addEventListener('wheel', scrollHandler);
-		}
-
-		// Function to disable scroll wheel event
-		function disableScroll() {
-			document.getElementById('chatInterface').removeEventListener('wheel', scrollHandler);
-		}
-		
-		function isElementVisible(element) {
-			return element.offsetWidth > 0 || element.offsetHeight > 0;
-		}
-		
-		if (isElementVisible(document.getElementById('chatInterface'))) {
-			enableScroll();
-		} else {
-			disableScroll();
-		}
-        window.addEventListener('resize', function() {
-			if (isElementVisible(document.getElementById('chatInterface'))) {
-				enableScroll();
-			} else {
-				disableScroll();
-			}
-		});
     </script>
 </body>
 </html>
