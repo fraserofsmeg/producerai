@@ -42,15 +42,20 @@
 
         .home-background {
             background-image: url('./landscape-produserai.jpg');
+            padding: 10px;
+            
         }
 
         .portrait-background {
             background-image: url('./portrait-produserai.jpg');
+            
         }
 
         #contactDetails {
             text-align: center;
-            margin-top: 20px;
+            /* margin-top: 20px; */
+            padding-top: 0.6%;
+           
             color: var(--text-color);
         }
 
@@ -60,10 +65,11 @@
         }
 
         @media (orientation: portrait) {
-            .background {
-                background-image: url('./portrait-produserai.jpg');
-            }
-        }
+    .background {
+        background-image: url('./portrait-produserai.jpg');
+        background-position: center 55%; /* Adjusts the image position horizontally*/
+    }
+}
 
         @media (orientation: landscape) {
             .background {
@@ -202,11 +208,11 @@
             background-position: center;
             background-repeat: no-repeat;
             background-size: 50vh;
-
             border-style: solid;
             border-radius: 10px;
             border-width: 1px;
             border-color: var(--boarder-color);
+            background-position: center 70%; /* Adjusts the image position horizontally*/
         }
 
         .chat-interface::-webkit-scrollbar {
@@ -228,7 +234,8 @@
 
             background-color: var(--accent-color);
             color: var(--text-color);
-            padding: 10px 20px;
+            padding: 10px;
+            font-size: small;
             text-align: center;
             display: block;
             border-style: solid;
@@ -236,7 +243,7 @@
             border-width: 1px;
             border-color: var(--boarder-color);
             cursor: pointer;
-            margin-bottom: 30px;
+            margin-top: 31%;
             float: right;
         }
 
@@ -251,7 +258,7 @@
             justify-content: space-between; /* Aligns children to each edge */
             padding-top: 8px;
             padding-left: 8px;
-            padding-bottom: 8px;
+            padding-bottom: 8px; 
             /* background-color: #170c12; Light grey background */
             /* margin-bottom: 5px; */
             cursor: pointer; /* Pointer cursor on hover */
@@ -277,11 +284,11 @@
         }
 
 
-        @media all and (min-width: 480px) {
+        @media all and (min-width: 1000px) {
             .chat-list-container {display:block;}
         }
 
-        @media all and (max-width: 479px) {
+        @media all and (max-width: 999px) {
             .chat-list-container{display:none;}
             .chat-interface-container {padding:0px;}
             .chat-interface-container {margin:0px;}
@@ -301,6 +308,7 @@
 
         .chat-list-container, h2 {
             text-align: left;
+            padding: 10px;
         }
 
         audio {
@@ -337,6 +345,11 @@
         }
         #colorChanger input[type="color"] {
             margin-right: 10px;
+        }
+
+        hr.bold {
+            border: 0;             /* Remove the default border */
+            border-top: 3px solid black; /* Add a solid top border with desired thickness and color */
         }
     </style>
 </head>
@@ -457,8 +470,7 @@
                             
                             <h2>Projects</h2>
                             <ul class="chat-list">
-                                <hr>
-                                <hr>
+                                <hr class="bold">
                                 <li class="chat-item selected">Rock track project</li>
                                 <hr>
                                 <li class="chat-item">Cinematic Soundscape for Cosmetics Ad</li>
@@ -483,7 +495,7 @@
                         <!-- Main chat interface container -->
                         <div class="chat-interface-container bg-black p-10 rounded-lg w-full">
                             <h2 class="text-3xl font-bold mb-4 text-center text-white">Rock track project</h2>
-                            <hr>
+                            <hr class="bold">
                             <div class="chat-interface flex flex-col overflow-y-auto relative" style="height: 500px;"></div>
                         </div>
                         </div>
