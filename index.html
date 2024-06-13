@@ -132,6 +132,7 @@
         .message {
             background-color: var(--secondary-color);
             margin-left: auto;
+            text-align: left;
             /* margin-right: 0; */
         }
         .response {
@@ -368,27 +369,23 @@
     </div>
     <script>
         const messages = [
-        { type: 'user', content: '', response: 'Can you make me a rock track?' },
-            { type: 'response', content: './0001.mp3', text: 'Here is your rock track, I hope it is to your satisfaction.' },
-            { type: 'response', content: '', text: "## Please click the play button to listen to it. ##" }, 
-            { type: 'user', content: '', response: 'Great but could you clean up the drums?' },
-            { type: 'response', content: './0002.mp3', text: "Sure, I've cleaned up the drums. What do you think?" },
-            { type: 'user', content: '', response: 'Can you add some reverb to the drums?' },
-            { type: 'response', content: './0003.mp3', text: "I've added reverb to the drums. How do they sound?" },
-            { type: 'user', content: '', response: 'Nice! Now can you add a baseline?' },
-            { type: 'response', content: './0004.mp3', text: "Here is your track with a baseline added." },
-            { type: 'user', content: '', response: 'How about if we pan that baseline all the way to the left?' },
-            { type: 'response', content: './0005.mp3', text: "Sure, I've completed your request. What do you think?" },
-            { type: 'user', content: '', response: 'Great, can you decrease the volume by 5db?' },
-            { type: 'response', content: '', text: "Do you mean total track volume or just the bassline as previously discussed?" },  
-            { type: 'user', content: '', response: 'Sorry, can you decrease the bass volume by 5db?' },
-            { type: 'response', content: './0006.mp3', text: 'The baseline volume has been decreased, have a listen' },
-            { type: 'user', content: '', response: 'The level is great but can you bring the bass back to centre?' },
-            { type: 'response', content: './0007.mp3', text: "Sure, what do you think?" },
-            { type: 'user', content: '', response: 'Brilliant, can you extend the track by 30 seconds?' },
-            { type: 'response', content: './0008.mp3', text: "I've extended your track by 30 seconds" },
-            { type: 'user', content: '', response: 'Perfection!!' },
-            { type: 'response', content: '', text: "Thank you! I'm glad you liked it. Is there anything else I can assist you with today?" }  
+        { type: 'user', content: '', response: 'Hey, can you help me build a song from scratch? ' },
+            { type: 'response', content: '', text: 'Sure, what are you thinking? ' },
+            { type: 'user', content: '', response: 'Can you start with a retro sounding drumbeat, upbeat, nighttime feeling?' },
+            { type: 'response', content: './produser.ai  DRUMS.wav', text: "How’s this?" },
+            { type: 'user', content: '', response: 'Yeah nice, now add a bass, but I’m not sure how I want it to sound? Something you’d hear in a club, I’m working on a project that’s set in a cool bar, nightlife scene.' },
+            { type: 'response', content: './produser.ai session DRUMS & BASS.wav', text: "" },
+            { type: 'user', content: '', response: 'Haha, yes perfect! Now how about a bit of melody, I’m thinking something fun and boppy?' },
+            { type: 'response', content: './produser.ai PLUCK (delay - not right).wav', text: "" },
+            { type: 'user', content: '', response: 'Yeah, kinda something doesn’t feel right about it, any ideas?' },
+            { type: 'response', content: '', text: "Sure, let me try something!" },
+            { type: 'response', content: './produser.ai session PLUCK CORRECT.wav', text: "" },
+            { type: 'user', content: '', response: 'Ok sounding good! So now I want the mood to change, as the scene goes from the music in the background to now being focused on the main characters. Can you help develop the track like that?' },
+            { type: 'response', content: './produser.ai session TRACK CHORDS.wav', text: "Added these chords to help develop the song and let the listener know something new is coming, would you like me to try some vocals?" },  
+            { type: 'user', content: '', response: 'Yeah, why not?' },
+            { type: 'response', content: './produser.ai BOUNCE.wav', text: 'Here you go! Let’s keep working on it, from here - sounding good to me! Is there a woman in the scene you’re working on, perhaps we can try to add some female vocals next?' },
+            { type: 'user', content: '', response: 'Sure, I have a deadline for the end of the day.' },
+            { type: 'response', content: '', text: "Not a problem, I think another half an hour and we’ll have it done!" },
     ];
         let currentIndex = 0;
         let intervalId = null;
@@ -405,7 +402,9 @@
             messageDiv.classList.add(message.type === 'user' ? 'message' : 'response');
             messageDiv2.classList.add(message.type === 'user' ? 'message' : 'response');
             messageDiv.textContent = message.type === 'user' ? message.response : message.text;
-            chatInterface.appendChild(messageDiv);
+            if (messageDiv.textContent) {
+                chatInterface.appendChild(messageDiv);
+            }
             if (message.content) {
                 const audio = document.createElement('audio');
                 audio.controls = true;
@@ -471,7 +470,7 @@
                             <h2>Projects</h2>
                             <ul class="chat-list">
                                 <hr class="bold">
-                                <li class="chat-item selected">Rock track project</li>
+                                <li class="chat-item selected">Retro nighttime feeling</li>
                                 <hr>
                                 <li class="chat-item">Cinematic Soundscape for Cosmetics Ad</li>
                                 <hr>
