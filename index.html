@@ -374,16 +374,16 @@
             { type: 'user', content: '', response: 'Can you start with a retro sounding drumbeat, upbeat, nighttime feeling?' },
             { type: 'response', content: './produser.ai  DRUMS.wav', text: "How’s this?" },
             { type: 'user', content: '', response: 'Yeah nice, now add a bass, but I’m not sure how I want it to sound? Something you’d hear in a club, I’m working on a project that’s set in a cool bar, nightlife scene.' },
-            { type: 'response', content: './produser.ai session DRUMS & BASS.wav', text: "" },
+            { type: 'response', content: './produser.ai session DRUMS & BASS.wav', text: "", starttime: 3 },
             { type: 'user', content: '', response: 'Haha, yes perfect! Now how about a bit of melody, I’m thinking something fun and boppy?' },
-            { type: 'response', content: './produser.ai PLUCK (delay - not right).wav', text: "" },
+            { type: 'response', content: './produser.ai session BOUNCE WRONG PLUCK.wav', text: "" , starttime: 8 },
             { type: 'user', content: '', response: 'Yeah, kinda something doesn’t feel right about it, any ideas?' },
             { type: 'response', content: '', text: "Sure, let me try something!" },
-            { type: 'response', content: './produser.ai session PLUCK CORRECT.wav', text: "" },
+            { type: 'response', content: './produser.ai session PLUCK CORRECT.wav', text: "", starttime: 8 },
             { type: 'user', content: '', response: 'Ok sounding good! So now I want the mood to change, as the scene goes from the music in the background to now being focused on the main characters. Can you help develop the track like that?' },
-            { type: 'response', content: './produser.ai session TRACK CHORDS.wav', text: "Added these chords to help develop the song and let the listener know something new is coming, would you like me to try some vocals?" },  
+            { type: 'response', content: './produser.ai session TRACK CHORDS.wav', text: "Added these chords to help develop the song and let the listener know something new is coming, would you like me to try some vocals?" , starttime: 21 },  
             { type: 'user', content: '', response: 'Yeah, why not?' },
-            { type: 'response', content: './produser.ai BOUNCE.wav', text: 'Here you go! Let’s keep working on it, from here - sounding good to me! Is there a woman in the scene you’re working on, perhaps we can try to add some female vocals next?' },
+            { type: 'response', content: './produser.ai BOUNCE.wav', text: 'Here you go! Let’s keep working on it, from here - sounding good to me! Is there a woman in the scene you’re working on, perhaps we can try to add some female vocals next?' , starttime: 38 },
             { type: 'user', content: '', response: 'Sure, I have a deadline for the end of the day.' },
             { type: 'response', content: '', text: "Not a problem, I think another half an hour and we’ll have it done!" },
     ];
@@ -412,6 +412,9 @@
                 source.src = message.content;
                 source.type = 'audio/wav';
                 audio.appendChild(source);
+                if (message.starttime) {
+                    audio.currentTime = message.starttime;
+                };
                 messageDiv2.appendChild(audio);
                 chatInterface.appendChild(messageDiv2);
             }
